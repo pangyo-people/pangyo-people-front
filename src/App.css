@@ -1,38 +1,87 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+
+*{
+  margin:0; padding:0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+ul{
+  list-style: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.container{
+  max-width: 85%;
+  margin:0px auto;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header{
+  width:100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 15px 7.5%;
+  border-bottom: 1px solid #000;
 }
 
-.App-link {
-  color: #61dafb;
+.header .title{
+  color:#000;
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.header .navbar li{
+  float: left;
+  padding:0 25px;
+  font-size:16px;
+  color:rgba(0,0,0, 75%);
+}
+
+.container .image-container{
+  columns:3 250px;
+  gap:15px;
+}
+
+.container .image-container img{
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.container .image-container .imageWrap{
+  width:100%;
+  margin-bottom:10px;
+}
+
+.container .image-container :hover img{
+  transition: filter 0.4s;
+  filter: brightness(40%);
+}
+
+.container .category{
+  display:flex;
+  align-items: center;
+  margin: 1%;
+  padding-top: 10px;
+}
+
+.container .category .category-list{
+  width:100%;
+  margin-left:2.5%;
+}
+
+.container .category .category-list ul{
+  display:flex;
+  justify-content: space-around;
+  flex-wrap:wrap;
+}
+
+.container .category .category-list li{
+  padding:0 5px;
+  float:left;
+}
+
+.container .category .category-list ul :hover{
+  border-bottom: 1px solid #000;
+  margin-bottom: -1px;
 }
