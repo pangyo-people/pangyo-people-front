@@ -1,0 +1,12 @@
+name: 'Auto Assign'
+on:
+  pull_request:
+    branches: [develop-deploy]
+
+jobs:
+  add-reviews:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kentaro-m/auto-assign-action@v1.2.1
+        with:
+          configuration-path: '.github/reviewers.yml'
