@@ -1,12 +1,11 @@
-name: build and deploy develop code
-
+name: build and deploy(dev)
 on:
   push: 
     branches: [develop-deploy]
 
 jobs:
-  deploy:
-    name: Deploy main branch test
+  develop-deploy:
+    name: build and deploy dev code
     runs-on: ubuntu-latest
 
     steps:
