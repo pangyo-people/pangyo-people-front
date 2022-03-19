@@ -12,7 +12,7 @@ jobs:
        - name: send PARKINHYO
          uses: twilio-labs/actions-sms@v1
          with:
-           fromPhoneNumber: ${{ secrets.PARKINHYO_PHONE_NUMBER}}
+           fromPhoneNumber: ${{ secrets.TWILIO_PHONE_NUMBER}}
            toPhoneNumber: ${{ secrets.HYUNYONGYANG_PHONE_NUMBER}}
            message: ${{ secrets.HYUNYONGYANG_SMS_NOTI_MESSAGE}}
          env:
