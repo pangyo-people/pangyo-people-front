@@ -6,7 +6,7 @@ on:
 jobs:
   add_reviews:
     if: ${{ github.event.pull_request.user.login == 'HyunYongYang'}}
-    name add assigne reviewers and labels when pull request frontend code
+    name: add assigne reviewers and labels when pull request frontend code
     runs-on: ubuntu-latest
     steps:
       - uses: kentaro-m/auto-assign-action@v1.2.1
