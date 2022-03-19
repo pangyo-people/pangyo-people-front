@@ -4,7 +4,7 @@ on:
     branches: [develop-deploy]
 
 jobs:
-  add-reviews:
+  add_reviews:
     if: ${{ github.event.pull_request.user.login == 'HyunYongYang'}}
     runs-on: ubuntu-latest
     steps:

@@ -5,7 +5,7 @@ on:
     branches: [develop-deploy]
 
 jobs:
-  dev-build:
+  dev_build:
     if: ${{ github.event.pull_request.user.login == 'HyunYongYang'}}
     name: build dev code
     runs-on: ubuntu-latest

@@ -7,7 +7,7 @@ on:
     types: [created]
 jobs:
   # Check auto merge contiditons of PR and proceed merging
-  automerge and add labels:
+  automerge_and_add_labels:
     # Apply this job if it is a PR and by OWNER with '/merge' comment
     if: |
       ${{ github.event.comment.author_association == 'OWNER' && 
@@ -43,4 +43,3 @@ jobs:
           MERGE_RETRY_SLEEP: "10000"
           UPDATE_LABELS: "approved"
           UPDATE_METHOD: "merge"
-          
