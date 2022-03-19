@@ -1,5 +1,5 @@
 # Check auto merge contiditons of PR and proceed merging
-name: "check auto merge contiditons and proceed merging"
+name: "automerge and add labels"
 
 # Event on a comment (in PR)
 on:
@@ -7,10 +7,10 @@ on:
     types: [created]
 jobs:
   # Check auto merge contiditons of PR and proceed merging
-  automerge:
+  automerge and add labels:
     # Apply this job if it is a PR and by OWNER with '/merge' comment
     if: |
-      ${{ github.event.comment.author_association == 'OWNER') && 
+      ${{ github.event.comment.author_association == 'OWNER' && 
       startsWith(github.event.comment.body, '/merge') }}
     runs-on: ubuntu-latest 
     steps:
@@ -23,14 +23,12 @@ jobs:
       
       # Apply 'approved' label when OWNER left '/merge' comment
       - uses: actions/checkout@v3
-      - uses: actions-ecosystem/action-add-labels@v1
+      - uses: andymckay/labeler@master
         with:
-          github_token: ${{ secrets.github_token }}
-          labels: |
-            approved
-      
+          add-labels: "approved"      
+        
       # AutoMerging if this PR has MERGE_LABELS: merged, lgtm (not wip, hold)
-      - name: automerge-lgtm-approved
+      - name: automerge
         uses: "pascalgn/automerge-action@v0"
         with:
           args: "--trace"
