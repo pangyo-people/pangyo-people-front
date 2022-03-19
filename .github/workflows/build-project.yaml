@@ -1,0 +1,20 @@
+name: build(dev)
+
+on:  
+  pull_request:
+    branches: [develop-deploy]
+
+jobs:
+  dev_build:
+    name: build dev code
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
