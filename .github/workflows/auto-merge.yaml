@@ -10,7 +10,7 @@ jobs:
   automerge and add labels:
     # Apply this job if it is a PR and by OWNER with '/merge' comment
     if: |
-      ${{ github.event.comment.author_association == 'OWNER') && 
+      ${{ github.event.comment.author_association == 'OWNER' && 
       startsWith(github.event.comment.body, '/merge') }}
     runs-on: ubuntu-latest 
     steps:
