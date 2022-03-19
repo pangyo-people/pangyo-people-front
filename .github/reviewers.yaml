@@ -1,0 +1,9 @@
+addReviewers: true
+
+addAssignees: author
+
+reviewers:
+  - PARKINHYO
+  - Ayoon-b
+
+numberOfReviewers: 0
