@@ -25,9 +25,8 @@ jobs:
          with:
            fromPhoneNumber: ${{ secrets.PARKINHYO_PHONE_NUMBER}}
            toPhoneNumber: ${{ secrets.AYOONB_PHONE_NUMBER}}
-           message: ${{ secrets.AYOONB_SMS_NOTI_MESSAGE}
+           message: ${{ secrets.AYOONB_SMS_NOTI_MESSAGE}}
          env:
            TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
            TWILIO_API_KEY: ${{ secrets.TWILIO_API_KEY }}
            TWILIO_API_SECRET: ${{ secrets.TWILIO_API_SECRET }}
-           
