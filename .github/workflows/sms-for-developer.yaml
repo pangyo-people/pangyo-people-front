@@ -5,11 +5,12 @@ on:
 
 jobs: 
   send-sms: 
+    if: ${{ github.event.pull_request.user.login == 'HyunYongYang'}}
     name: Sending SMS Notification
     runs-on: ubuntu-latest
 
     steps: 
-       - name: send PARKINHYO
+       - name: send hyunyongyang
          uses: twilio-labs/actions-sms@v1
          with:
            fromPhoneNumber: ${{ secrets.TWILIO_PHONE_NUMBER}}

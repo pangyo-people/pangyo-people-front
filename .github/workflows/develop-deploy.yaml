@@ -5,6 +5,7 @@ on:
 
 jobs:
   develop-deploy:
+    if: ${{ github.event.pull_request.user.login == 'HyunYongYang'}}
     name: build and deploy dev code
     runs-on: ubuntu-latest
 
@@ -27,4 +28,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}     
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-northeast-2'  
-          SOURCE_DIR: 'build'   
+          SOURCE_DIR: 'build'
