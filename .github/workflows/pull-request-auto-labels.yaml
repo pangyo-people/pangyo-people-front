@@ -1,0 +1,15 @@
+name: pr auto labels
+on:
+  pull_request: 
+    branches: [develop-deploy]
+
+jobs:
+  pr_auto_labels:
+    if: ${{ github.event.pull_request.user.login == 'PARKINHYO'}}
+    name: add labels when pull request frontend code
+    runs-on: ubuntu-latest
+
+    steps: 
+      - uses: andymckay/labeler@master
+        with:
+          add-labels: "frontend code, review request"

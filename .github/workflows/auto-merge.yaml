@@ -22,16 +22,15 @@ jobs:
           echo Hello, this workflow is allowed to specific OWNERS.
       
       # Apply 'approved' label when OWNER left '/merge' comment
-      - uses: actions/checkout@v3
       - uses: andymckay/labeler@master
         with:
-          add-labels: "approved"      
+          add-labels: "approved" 
         
       # AutoMerging if this PR has MERGE_LABELS: merged, lgtm (not wip, hold)
       - name: automerge
         uses: "pascalgn/automerge-action@v0.14.3"
         with:
-          args: "--trace"
+          args: ["--trace"]
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           MERGE_LABELS: "approved, !wip"
