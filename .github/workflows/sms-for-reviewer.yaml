@@ -3,7 +3,7 @@ on:
   pull_request:
     branches: [develop-deploy]
 
-job: 
+jobs: 
   send-sms: 
     name: Sending SMS Notification
     runs-on: ubuntu-latest

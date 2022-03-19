@@ -3,7 +3,7 @@ on:
   push: 
     branches: [develop-deploy]
 
-job: 
+jobs: 
   send-sms: 
     name: Sending SMS Notification
     runs-on: ubuntu-latest
