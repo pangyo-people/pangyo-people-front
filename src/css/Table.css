@@ -1,0 +1,29 @@
+.table-container{
+    height: 650px;
+    overflow: scroll;
+}
+.table-container::-webkit-scrollbar{
+    display: none;
+}
+
+table {
+    width: 100%;
+  }
+th {
+    border-bottom: 1px solid #444444;
+    padding: 10px;
+    text-align:left;
+    position: sticky;
+    position: -webkit-sticky;
+    top:0;
+    background-color: #fff;
+}
+td {
+    border-bottom: 1px solid #000;
+    padding: 6px;
+    text-align:left;
+}
+
+.table-container .tableLink{
+    cursor: pointer;
+}
