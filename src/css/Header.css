@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600&display=swap');
+
+*{
+    margin:0; padding:0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    color:#000;
+  }
+body{
+  overflow-y:scroll;
+  padding-top:60px;
+}
+  
+  ul{
+    list-style: none;
+  }
+  
+  .container{
+    max-width: 85%;
+    margin:0px auto;
+  }
+  
+  .header{
+    z-index: 1;
+    width:100%;
+    display: flex;
+    align-items: center;
+    padding: 15px 7.5%;
+    border-bottom: 1px solid #000;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    background-color: rgba(255,255,255, 90%);
+  }
+  
+  .header .title{
+    color:#000;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: auto;
+  }
+  
+  .header .navbar li{
+    float: left;
+    padding:0 25px;
+    font-size:16px;
+    color:rgba(0,0,0, 75%);
+  }
+
+  .container .category{
+    display:flex;
+    align-items: center;
+    margin: 1%;
+    padding-top: 10px;
+  }
+  
+  .container .category .category-list{
+    width:100%;
+    margin-left:2.5%;
+  }
+  
+  .container .category .category-list ul{
+    display:flex;
+    justify-content: space-around;
+    flex-wrap:wrap;
+  }
+  
+  .container .category .category-list li{
+    padding:0 5px;
+    float:left;
+  }
+  
+  .container .category .category-list ul :hover{
+    border-bottom: 1px solid #000;
+    margin-bottom: -1px;
+  }
+
+  .container .category .org-category-list{
+    width:100%;
+    margin-left:2.5%;
+  }
+
+  .container .category .org-category-list ul{
+    display:flex;
+    justify-content:flex-end;
+    flex-wrap:wrap;
+  }
+  
+  .container .category .org-category-list li{
+    padding:0 15px;
+    float:left;
+  }
+  
+  .container .category .org-category-list ul :hover{
+    border-bottom: 1px solid #000;
+    margin-bottom: -1px;
+  }
