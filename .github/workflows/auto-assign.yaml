@@ -1,11 +1,11 @@
-name: 'Auto Assign'
+name: Auto Assign
 on:
   pull_request:
     branches: [develop-deploy]
 
 jobs:
   add_reviews:
-    if: ${{ github.event.pull_request.user.login == 'HyunYongYang'}}
+    if: ${{ github.event.pull_request.user.login == 'YangHyunYong'}}
     name: add assigne reviewers and labels when pull request frontend code
     runs-on: ubuntu-latest
     steps:

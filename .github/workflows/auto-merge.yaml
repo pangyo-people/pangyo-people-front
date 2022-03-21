@@ -1,5 +1,5 @@
 # Check auto merge contiditons of PR and proceed merging
-name: "automerge and add labels"
+name: automerge and add labels
 
 # Event on a comment (in PR)
 on:

@@ -5,7 +5,7 @@ on:
 
 jobs: 
   send_sms: 
-    if: ${{ github.event.pull_request.user.login == 'HyunYongYang'}}
+    if: ${{ github.event.pull_request.user.login == 'YangHyunYong'}}
     name: Sending SMS Notification
     runs-on: ubuntu-latest
 
