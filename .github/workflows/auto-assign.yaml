@@ -12,9 +12,9 @@ jobs:
       - uses: kentaro-m/auto-assign-action@v1.2.1
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          configuration-path: '.github/reviewers.yaml'
+          configuration-path: '.github/assignee.yaml'
       
       - uses: andymckay/labeler@master
         with:
-          add-labels: "frontend code, review request"
+          add-labels: "frontend code"
           
