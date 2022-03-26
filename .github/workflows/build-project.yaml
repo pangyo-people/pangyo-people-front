@@ -1,8 +1,8 @@
-name: build(dev)
+name: build project
 
 on:  
   pull_request:
-    branches: [develop-deploy]
+    branches: [develop-deploy, main]
 
 jobs:
   dev_build:
