@@ -33,4 +33,4 @@ jobs:
           aws cloudfront create-invalidation \
           --distribution-id ${{secrets.DEV_AWS_DISTRIBUTION_ID}} \
           --paths "/*" \
-          --profile pgpp.co.kr --region ap-northeast-2
+          --region ap-northeast-2
