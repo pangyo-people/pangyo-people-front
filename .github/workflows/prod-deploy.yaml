@@ -27,7 +27,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-northeast-2'  
           SOURCE_DIR: 'build'
-          f
+          
       - name: Invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v2
         env:
