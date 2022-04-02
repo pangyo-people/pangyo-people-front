@@ -33,12 +33,12 @@ body{
     top:0;
     left:0;
     right:0;
-    background-color: rgba(255,255,255, 90%);
+    background-color: rgba(255,255,255);
   }
   
   .header .title{
     color:#000;
-    font-size: 20px;
+    font-size: 1.2em;
     font-weight: bold;
     margin-right: auto;
   }
@@ -46,7 +46,7 @@ body{
   .header .navbar li{
     float: left;
     padding:0 25px;
-    font-size:16px;
+    font-size:1em;
     color:rgba(0,0,0, 75%);
   }
 
@@ -89,12 +89,17 @@ body{
     flex-wrap:wrap;
   }
   
+  .container .category .org-category-list ul :hover{
+    border-bottom: 1px solid #000;
+    margin-bottom: -1px;
+  }
+
   .container .category .org-category-list li{
     padding:0 15px;
     float:left;
   }
-  
-  .container .category .org-category-list ul :hover{
+
+  .container .category .org-category-list li.active{
     border-bottom: 1px solid #000;
     margin-bottom: -1px;
   }
