@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../css/Header.css";
 import "../css/Developers.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,68 +11,27 @@ import Educations from "./Educations";
 import Sessions from "./Sessions";
 import Clubs from "./Clubs";
 import Select from "react-select";
+import {call} from "../service/ApiService"
 
 function DevelopersPage() {
     let [modal, setModal] = useState(false);
     let [page,setPage] = useState(0);
 
     let [inputs, setInputs] = useState({
-      org_id: "",
-      org_name: "",
-      org_description: "",
-      org_url: "",
-      org_category: "",
-      org_permission: "",
+      orgName: "",
+      orgDescription: "",
+      orgUrl: "",
+      orgCategory: "",
+      orgPermission: "",
     });
   
-    let [items, setItems] = useState([
-      {
-        org_id: "1",
-        org_name: "DDD",
-        org_description: "개발자와 디자이너가 함께하는 사이드 프로젝트",
-        org_url: "https://www.notion.so/dddset/DDD-7b73ca41b67c4658b292a4662581ee01",
-        org_category: "0",
-        org_permission: "true",
-      },
-      {
-        org_id: "2",
-        org_name: "한이음",
-        org_description: "대학생 멘티와 지도교수, 기업전문가 ICT멘토가 팀을 이루어 실무 프로젝트를 수행",
-        org_url: "https://www.hanium.or.kr/portal/hanium/businessOverview.do",
-        org_category: "0",
-        org_permission: "true",
-      },
-      {
-        org_id: "3",
-        org_name: "양재동 코드랩",
-        org_description: "",
-        org_url: "https://www.codelabs.kr/",
-        org_category: "1",
-        org_permission: "true",
-      },
-      {
-        org_id: "4",
-        org_name: "스프린트 서울",
-        org_description: "",
-        org_url: "https://sprintseoul.org/",
-        org_category: "2",
-        org_permission: "true",
-      },
-      {
-        org_id: "5",
-        org_name: "TeamH4C",
-        org_description: "",
-        org_url: "https://www.facebook.com/teamh4c/",
-        org_category: "3",
-        org_permission: "true",
-      },
-    ]);
+    let [items, setItems] = useState({item:[]});
 
     const categorys = [
-      {idx: "0", name: "동아리"}, 
-      {idx: "1", name: "모임"}, 
-      {idx: "2", name: "교육"}, 
-      {idx: "3", name: "정규행사"}
+      {idx: "0", name: "동아리", data:"CLUBS"}, 
+      {idx: "1", name: "모임", data:"MEETINGS"}, 
+      {idx: "2", name: "교육", data:"EDUCATIONS"}, 
+      {idx: "3", name: "정규행사", data:"SESSIONS"}
     ];
   
     const categoryList = categorys.map((element, idx) => (
@@ -90,7 +49,7 @@ function DevelopersPage() {
     }
 
     
-  const { org_name, org_description, org_url, org_category } = inputs;
+  const { orgName, orgDescription, orgUrl, orgCategory } = inputs;
   const onInputChange = (e) => {
     const { name, value } = e.target;
     setInputs({
@@ -102,23 +61,22 @@ function DevelopersPage() {
   };
 
   const add = (item) => {
-    const thisItems = items;
-    item.id = thisItems.length;
-    item.org_permission = "true";
-    thisItems.push(item);
-    setItems(thisItems);
-    console.log(items)
+    console.log(item);
+    item.orgPermission = "false";
+    call("/v1/api/org/write","POST",item)
+    .then((response)=>
+    setItems({item:response}))
+    console.log(items);
   };
 
   const onSubmit = () => {
     add(inputs);
     setInputs({
-      org_id: "",
-      org_name: "",
-      org_description: "",
-      org_url: "",
-      org_category: "",
-      org_permission: "",
+      orgName: "",
+      orgDescription: "",
+      orgUrl: "",
+      orgCategory: "",
+      orgPermission: "",
     });
   };
 
@@ -172,24 +130,24 @@ function DevelopersPage() {
           <div className="modal-body">
             <div>
               <span>이름</span>
-              <input name="org_name" value={org_name} onChange={onInputChange} placeholder="동아리/모임/교육/행사명을 입력하세요."></input>
+              <input name="orgName" value={orgName} onChange={onInputChange} placeholder="동아리/모임/교육/행사명을 입력하세요."></input>
             </div>
             <div>
               <span>카테고리</span>
-              <select onChange={onInputChange} name="org_category" options={categorys} value={org_category}>
+              <select onChange={onInputChange} name="orgCategory" options={categorys} value={orgCategory}>
                 {categorys.map((element) => (
-                  <option key={element.idx}  defaultValue="0" value={element.idx}>
+                  <option key={element.idx} value={element.data}>
                     {element.name}
                   </option>
                 ))}
               </select>
             </div>
             <div>
-              <span>설명</span> <input name="org_description" value={org_description} onChange={onInputChange} placeholder="설명을 입력하세요."></input>
+              <span>설명</span> <input name="orgDescription" value={orgDescription} onChange={onInputChange} placeholder="설명을 입력하세요."></input>
             </div>
             <div>
               <span>URL</span>
-              <input name="org_url" value={org_url} onChange={onInputChange} placeholder="사이트 url을 입력하세요."></input>
+              <input name="orgUrl" value={orgUrl} onChange={onInputChange} placeholder="사이트 url을 입력하세요."></input>
             </div>
 
             <button

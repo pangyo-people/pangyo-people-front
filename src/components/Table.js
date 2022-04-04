@@ -5,7 +5,7 @@ import "../css/Table.css";
 function Table({ columns, data }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
-
+  console.log(data)
   return (
     <div className="table-container">
       <table {...getTableProps()}>
@@ -25,12 +25,13 @@ function Table({ columns, data }) {
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell, idx) => {
+                  console.log(cell.value)
                   if (row.cells.length === idx + 1) {
                     return (
                       <td className="tableLink"
                         onClick={() => {
                           window.open(
-                            "https://ndc.nexon.com/main?locale=en",
+                            "https://"+`${cell.value}`,
                             "_blank"
                           );
                         }}

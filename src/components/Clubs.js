@@ -1,11 +1,11 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import "../css/Header.css";
 import "../css/Developers.css";
 import Table from "./Table";
-import faker from "@faker-js/faker/locale/ko";
+import {call} from "../service/ApiService"
 
-function Clubs(props) {
-  const [items, setItems]= useState(props.items)
+function Clubs() {
+  const [items, setItems]= useState({item:[]})
   const columns = useMemo(
     () => [
       {
@@ -24,17 +24,22 @@ function Clubs(props) {
     []
   );
 
-  const filterItem = items.filter(element => element.org_category === "0");
-  const data = 
+  useEffect(()=>{
+    call("/v1/api/org/CLUBS","GET",null).then((response)=>
+    setItems({item:response}));
+  },[])
+
+  const filterItem = items.item.length > 0 && items.item.filter(element => element.orgCategory === "CLUBS");
+  const data = filterItem.length > 0 &&
     filterItem.map((item) => ({
-      name: item.org_name,
-      description: item.org_description,
-      link: item.org_url,
+      name: item.orgName,
+      description: item.orgDescription,
+      link: item.orgUrl,
     }));
 
   return (
     <div>
-      <Table columns={columns} data={data} />
+      {data.length > 0 && <Table columns={columns} data={data} />}
     </div>
   );
 }
