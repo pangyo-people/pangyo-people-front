@@ -59,7 +59,7 @@
     ]
   },
   "devDependencies": {
-    "@faker-js/faker": "^6.0.0",
+    "@faker-js/faker": "^6.1.2",
     "webpack-cli": "^4.9.2"
   }
 }
