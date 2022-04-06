@@ -1,4 +1,4 @@
-import { React, useState, useMemo } from "react";
+import { React, useState, useMemo, useEffect } from "react";
 import "../css/Home.css";
 import "../css/Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,102 +7,26 @@ import writeBtn from "../assets/write.svg";
 import Modal from "react-modal";
 import { Link } from "react-router-dom";
 import Table from "../components/Table";
+import {call} from "../service/ApiService";
 
 function Home() {
   const [modal, setModal] = useState(false);
   const [visible,setVisible] = useState(false);
-  const [items, setItems] = useState([
-    {
-      event_id: "1",
-      event_name: "nexon developers conference 2022",
-      event_category: "9",
-      host: "Gloand Korea",
-      event_date: "03.31(목) 20:00~22:00",
-      event_url: "/assets/img-1.jpg",
-      event_permission: "true",
-    },
-    {
-      event_id: "2",
-      event_name: "nexon developers conference 2022",
-      event_category: "9",
-      host: "Gloand Korea",
-      event_date: "03.31(목) 20:00~22:00",
-      event_url: "/assets/img-2.jpg",
-      event_permission: "true",
-    },
-    {
-      event_id: "3",
-      event_name: "nexon developers conference 2022",
-      event_category: "9",
-      host: "Gloand Korea",
-      event_date: "03.31(목) 20:00~22:00",
-      event_url: "/assets/img-3.jpg",
-      event_permission: "true",
-    },
-    {
-      event_id: "4",
-      event_name: "nexon developers conference 2022",
-      event_category: "8",
-      host: "Gloand Korea",
-      event_date: "03.31(목) 20:00~22:00",
-      event_url: "/assets/img-4.jpg",
-      event_permission: "true",
-    },
-    {
-      event_id: "5",
-      event_name: "nexon developers conference 2022",
-      event_category: "1",
-      host: "Gloand Korea",
-      event_date: "03.31(목) 20:00~22:00",
-      event_url: "/assets/img-5.jpg",
-      event_permission: "true",
-    },
-    {
-      event_id: "6",
-      event_name: "nexon developers conference 2022",
-      event_category: "2",
-      host: "Gloand Korea",
-      event_date: "03.31(목) 20:00~22:00",
-      event_url: "/assets/img-6.jpg",
-      event_permission: "true",
-    },
-    {
-      event_id: "7",
-      event_name: "nexon developers conference 2022",
-      event_category: "3",
-      host: "Gloand Korea",
-      event_date: "03.31(목) 20:00~22:00",
-      event_url: "/assets/img-7.jpg",
-      event_permission: "true",
-    },
-    {
-      event_id: "8",
-      event_name: "nexon developers conference 2022",
-      event_category: "4",
-      host: "Gloand Korea",
-      event_date: "03.31(목) 20:00~22:00",
-      event_url: "/assets/img-8.jpg",
-      event_permission: "true",
-    },
-    {
-      event_id: "9",
-      event_name: "nexon developers conference 2022",
-      event_category: "6",
-      host: "Gloand Korea",
-      event_date: "03.31(목) 20:00~22:00",
-      event_url: "/assets/img-9.jpg",
-      event_permission: "true",
-    },
-  ]);
+  const [items, setItems] = useState({item:[]});
   const [inputs, setInputs] = useState({
-    event_id:"",
-    event_name: "",
-    event_category:"",
+    eventName: "",
+    eventCategory:"",
     host:"",
-    event_date:"",
-    event_url:"",
-    event_permission: "",
+    eventDate:"",
+    eventUrl:"",
+    eventPermission: "",
   });
+
+  useEffect(()=>{
+    call("/v1/api/events","GET",null).then((response)=>
+    setItems({item:response}));
+  },[])
+
   const categorys = [
     { idx: "0", name: "AI" },
     { idx: "1", name: "Android" },
@@ -118,8 +42,8 @@ function Home() {
     { idx: "11", name: "프로젝트" },
   ];
 
-  const categoryList = categorys.map((element,idx) => <li key={idx}>{element.name}</li>);
-  const imageList = items.map((element) => (
+  const categoryList = categorys.map((element,idx) => <li key={idx} >{element.name}</li>);
+  const imageList = items.item.length > 0 && items.item.map((element) => (
     //링크 사이트 이미지 가져오는 방법 알아낸 후 event_url 교체하고 적용해야함.
     <div
       className="imageWrap"
@@ -128,14 +52,14 @@ function Home() {
       }}
     >
       <div className="imageWrapScreen">
-        <img src={process.env.PUBLIC_URL + `${element.event_url}`} alt="" />
+        <img src={process.env.PUBLIC_URL + `${element.eventUrl}`} alt="" />
 
         <div className="eventText">
-          <div className="eventTitle">{element.event_name}</div>
+          <div className="eventTitle">{element.eventName}</div>
           <div className="eventInfo">
-            <div>분류: {categorys[element.event_category].name}</div>
+            {/* <div>분류: {categorys[element.eventCategory].name}</div> */}
             <div>주최: {element.host}</div>
-            <div>일시: {element.event_date}</div>
+            <div>일시: {element.eventDate}</div>
           </div>
         </div>
       </div>
@@ -163,15 +87,15 @@ function Home() {
     ],
     []
   );
-  const data = 
-    items.map((item) => ({
-      name: item.event_name,
-      category: item.event_category,
+  const data = items.item.length > 0 &&
+    items.item.map((item) => ({
+      name: item.eventName,
+      category: item.eventCategory,
       host: item.host,
-      link: item.event_url,
+      link: item.eventUrl,
     }));
   
-  const {event_name, event_category, host, event_date, event_url} = inputs;
+  const {eventName, eventCategory, host, eventDate, eventUrl} = inputs;
   const onInputChange = (e) =>{
     const {name, value} = e.target;
     setInputs({
@@ -183,24 +107,21 @@ function Home() {
   }
 
   const add = (item) =>{
-    const thisItems = items;
-    item.id = thisItems.length;
-    item.event_permission="true";
-    thisItems.push(item);
-    setItems(thisItems);
-    console.log(items)
+    item.eventPermission="false";
+    call("/v1/api/events/write","POST",item)
+    .then((response)=>
+    setItems({item:response}))
   }
 
   const onSubmit = ()=>{
     add(inputs);
     setInputs({
-      event_id:"",
-      event_name: "",
-      event_category:"",
+      eventName: "",
+      eventCategory:"",
       host:"",
-      event_date:"",
-      event_url:"",
-      event_permission: "",
+      eventDate:"",
+      eventUrl:"",
+      eventPermission: "",
     })
   }
 
@@ -263,14 +184,14 @@ function Home() {
               <span>행사명</span>{" "}
               <input
                 onChange={onInputChange}
-                name="event_name"
-                value={event_name}
+                name="eventName"
+                value={eventName}
                 placeholder="행사명을 입력하세요."
               ></input>
             </div>
             <div>
               <span>카테고리</span>{" "}
-              <select onChange={onInputChange} name="event_category"value={event_category}>
+              <select onChange={onInputChange} name="eventCategory"value={eventCategory}>
                 {categorys.map((element) => (
                   <option key={element.idx} defaultValue="0" value={element.idx}>
                     {element.name}
@@ -290,8 +211,8 @@ function Home() {
             <div>
               <span>날짜</span>{" "}
               <input
-                name="event_date"
-                value={event_date}
+                name="eventDate"
+                value={eventDate}
                 onChange={onInputChange}
                 placeholder="날짜를 입력하세요."
               ></input>
@@ -299,8 +220,8 @@ function Home() {
             <div>
               <span>URL</span>{" "}
               <input
-                name="event_url"
-                value={event_url}
+                name="eventUrl"
+                value={eventUrl}
                 onChange={onInputChange}
                 placeholder="사이트 url을 입력하세요."
               ></input>
