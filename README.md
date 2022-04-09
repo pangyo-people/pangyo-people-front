@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+<div align="center">
+<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fpangyo-people%2Fpangyo-people-front&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a><br>
+<a href="https://github.com/pangyo-people/pangyo-people-front/actions/workflows/build-project.yaml"><img src="https://github.com/pangyo-people/pangyo-people-front/actions/workflows/build-project.yaml/badge.svg"/></a>
+<a href="https://github.com/pangyo-people/pangyo-people-front/actions/workflows/develop-deploy.yaml"><img src="https://github.com/pangyo-people/pangyo-people-front/actions/workflows/develop-deploy.yaml/badge.svg"/></a>
+<a href="https://github.com/pangyo-people/pangyo-people-front/actions/workflows/develop-prod.yaml"><img src="https://github.com/pangyo-people/pangyo-people-front/actions/workflows/develop-prod.yaml/badge.svg"/></a>
+</div>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+<br>
 
-In the project directory, you can run:
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/47745785/162581155-2826c980-0bdd-4f1f-9bae-a1d6acb0d93d.jpg" alt="botobo-logo" height="280">
+</p>
 
-### `npm start`
+<p align="center">
+<strong> 판교 피플은 해커톤, 스터디, 알고리즘 대회 등 <br>오로지 개발자들을 위한 이벤트들을 모아서 보여주는 서비스입니다. 😎</strong>
+</p>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<br>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# 🌁 판교피플
 
-### `npm test`
+* [판교피플 바로가기](https://www.pgpp.co.kr)
+* [판교피플의 이야기(노션)](https://www.pgpp.co.kr)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 구성원 👨‍👩‍👧‍👧
 
-### `npm run build`
+| [YangHyunYong](https://github.com/YangHyunYong) | [Ayoon-b](https://github.com/Ayoon-b) | [Danny](https://github.com/PARKINHYO) | 
+| :----------: | :--------: | :---------: |  
+| <img src="https://user-images.githubusercontent.com/47745785/162581983-7659fba7-f6f2-4dff-9e4e-12502bece46b.png" width=400px alt="카일"/> | <img src="https://user-images.githubusercontent.com/47745785/162581983-7659fba7-f6f2-4dff-9e4e-12502bece46b.png" width=400px alt="디토"/> | <img src="https://user-images.githubusercontent.com/47745785/162581983-7659fba7-f6f2-4dff-9e4e-12502bece46b.png" width=400px alt="중간곰"/> |
+| 프론트엔드 담당✨| 백엔드 담당🎢 | 인프라 담당 🌏 |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 📝 License
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Copyright © 2022 [판교피플](https://github.com/parkinhyo).<br/>
+This project is [MIT]() licensed.
+***
+<br>
