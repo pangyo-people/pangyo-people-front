@@ -20,19 +20,19 @@
 
 # 🌁 판교피플
 
-* [판교피플 바로가기](https://www.pgpp.co.kr)
-* [판교피플의 이야기(노션)](https://www.pgpp.co.kr)
+* <a target="_blank" href="https://www.pgpp.co.kr">판교피플 바로가기</a>
+* <a target="_blank" href="https://ihp001.notion.site/e03355339e614cb88bd601d6a7fed2e4">판교피플의 이야기(노션)</a>
 
 ## 구성원 👨‍👩‍👧‍👧
 
 | [YangHyunYong](https://github.com/YangHyunYong) | [Ayoon-b](https://github.com/Ayoon-b) | [Danny](https://github.com/PARKINHYO) | 
 | :----------: | :--------: | :---------: |  
-| <img src="https://user-images.githubusercontent.com/47745785/162581983-7659fba7-f6f2-4dff-9e4e-12502bece46b.png" width=400px alt="카일"/> | <img src="https://user-images.githubusercontent.com/47745785/162581983-7659fba7-f6f2-4dff-9e4e-12502bece46b.png" width=400px alt="디토"/> | <img src="https://user-images.githubusercontent.com/47745785/162581983-7659fba7-f6f2-4dff-9e4e-12502bece46b.png" width=400px alt="중간곰"/> |
+| <img src="https://user-images.githubusercontent.com/47745785/162581983-7659fba7-f6f2-4dff-9e4e-12502bece46b.png" width=400px alt="a"/> | <img src="https://user-images.githubusercontent.com/47745785/162581983-7659fba7-f6f2-4dff-9e4e-12502bece46b.png" width=400px alt="b"/> | <img src="https://user-images.githubusercontent.com/47745785/162581983-7659fba7-f6f2-4dff-9e4e-12502bece46b.png" width=400px alt="c"/> |
 | 프론트엔드 담당✨| 백엔드 담당🎢 | 인프라 담당 🌏 |
 
 ## 📝 License
 
-Copyright © 2022 [판교피플](https://github.com/parkinhyo).<br/>
-This project is [MIT]() licensed.
+Copyright © 2022 [판교피플](https://github.com/pangyo-people).<br/>
+This project is [MIT](https://github.com/pangyo-people/pangyo-people-front/blob/main/LICENSE) licensed.
 ***
 <br>
