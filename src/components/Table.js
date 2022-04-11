@@ -1,11 +1,12 @@
 import React from "react";
 import { useTable } from "react-table";
 import "../css/Table.css";
+import accessBtn from "../assets/accessBtn.svg";
+import cancelBtn from "../assets/cancelBtn.svg";
 
 function Table({ columns, data }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
-  console.log(data)
   return (
     <div className="table-container">
       <table {...getTableProps()}>
@@ -25,15 +26,12 @@ function Table({ columns, data }) {
             return (
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell, idx) => {
-                  console.log(cell.value)
                   if (row.cells.length === idx + 1) {
                     return (
-                      <td className="tableLink"
+                      <td
+                        className="tableLink"
                         onClick={() => {
-                          window.open(
-                            "https://"+`${cell.value}`,
-                            "_blank"
-                          );
+                          window.open("https://" + `${cell.value}`, "_blank");
                         }}
                         {...cell.getCellProps()}
                       >

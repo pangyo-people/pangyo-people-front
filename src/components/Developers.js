@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "../css/Header.css";
-import "../css/Developers.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faRemove } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
@@ -39,10 +38,10 @@ function DevelopersPage() {
     ));
 
     const obj = { 
-      0:<Clubs items={items}/>,
-      1:<Meetings items={items}/>,
-      2:<Educations items={items}/>,
-      3:<Sessions items={items}/>,
+      0:<Clubs/>,
+      1:<Meetings/>,
+      2:<Educations/>,
+      3:<Sessions/>,
     }
     const onClickHandler = (id) =>{
       setPage(id);
