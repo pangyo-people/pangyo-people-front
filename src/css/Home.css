@@ -57,9 +57,6 @@
   color:#fff;
 }
 
-.writeBtn{
-  cursor: pointer;
-}
 
 .modal{
   background-color: rgba(0, 0, 0, 0.8);
@@ -86,8 +83,13 @@
   padding-bottom:50px;
 }
 
-.modal-container .modal-body div{
+.modal-container .modal-body div {
   padding:15px;
+}
+
+.modal-container .modal-body div .datePicker{
+  display:flex;
+  flex-direction: column;
 }
 .modal-container .modal-body span{
   font-size: 16px;
@@ -99,7 +101,6 @@
   border: none;
   border-bottom: 1px solid rgba(24, 25, 25, 0.38);
   line-height: 25px;
-  
 }
 .modal-container .modal-body select{
   float:right;
@@ -114,7 +115,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 80px auto;
+  margin: 30px auto;
   width:60px;
   height:40px;
   background-color: #DBF0FF;
@@ -126,8 +127,51 @@
   cursor: pointer;
 }
 
+.addBtn{
+  position: fixed;
+  bottom:7vh;
+  right:25px;
+}
+
 .writeBtn{
   position: fixed;
   bottom:7vh;
   right:25px;
+  cursor: pointer;
+}
+
+
+@media (max-width:430px) {
+  .modal-container{
+    width:340px;
+    height: 460px;
+    padding:30px; 
+  }
+  .modal-container .modal-header{
+    font-size: 16px;
+    padding-bottom:25px;
+  }
+  .modal-container .modal-body input{
+    width:150px;
+  }
+  .modal-container .modal-body div {
+    padding:10px;
+  }
+  .modal-container .modal-body span{
+    font-size: 14px;
+  }
+  .modal-container .modal-body input{
+    line-height: 20px;
+  }
+  .modal-container .modal-body .sendBtn{
+    margin: 25px auto;
+    width:55px;
+    height:35px;
+  }
+  .addBtn{
+    bottom:5vh;
+  }
+  .writeBtn{
+    bottom:5vh;
+  }
 }

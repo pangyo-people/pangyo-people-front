@@ -8,11 +8,15 @@ import Modal from "react-modal";
 import { Link } from "react-router-dom";
 import Table from "../components/Table";
 import {call} from "../service/ApiService";
+import Datepicker from "./Datepicker";
 
 function Home() {
   const [modal, setModal] = useState(false);
-  const [visible,setVisible] = useState(false);
+  const [showTable,setShowTable] = useState(false);
   const [items, setItems] = useState({item:[]});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filterCategory, setFilterCategory] = useState("");
+  const [showSearch,setShowSearch] = useState(false);
   const [inputs, setInputs] = useState({
     eventName: "",
     eventCategory:"",
@@ -21,11 +25,12 @@ function Home() {
     eventUrl:"",
     eventPermission: "",
   });
-
+  const week=['일','월','화','수','목','금','토'];
   useEffect(()=>{
     call("/v1/api/events","GET",null).then((response)=>
     setItems({item:response}));
   },[])
+
 
   const categorys = [
     { idx: "0", name: "AI" },
@@ -41,30 +46,48 @@ function Home() {
     { idx: "10", name: "클라우드" },
     { idx: "11", name: "프로젝트" },
   ];
+  const categoryList = categorys.map((element,idx) => <li key={idx} className={`${parseInt(filterCategory)===idx? 'active' : ''}`} onClick={()=>{setFilterCategory(element.idx); console.log(element.idx)}}>{element.name}</li>);
+  const imageList =
+  items.item.length > 0 &&
+  items.item
+    .filter((element) => {
+      if (searchTerm === "") {
+        return element;
+      } else if (
+        element.eventName.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return element;
+      }
+    })
+    .filter((element)=>{
+      if (filterCategory === ""){
+        return element;
+      } else if(element.eventCategory === parseInt(filterCategory)){
+        return element;
+      }
+    })
+    .map((element) => (
+      //링크 사이트 이미지 가져오는 방법 알아낸 후 event_url 교체하고 적용해야함.
+      <div
+        className="imageWrap"
+        onClick={() => {
+          window.open("https://ndc.nexon.com/main?locale=en", "_blank");
+        }}
+      >
+        <div className="imageWrapScreen">
+          <img src={process.env.PUBLIC_URL + `${element.eventUrl}`} alt="" />
 
-  const categoryList = categorys.map((element,idx) => <li key={idx} >{element.name}</li>);
-  const imageList = items.item.length > 0 && items.item.map((element) => (
-    //링크 사이트 이미지 가져오는 방법 알아낸 후 event_url 교체하고 적용해야함.
-    <div
-      className="imageWrap"
-      onClick={() => {
-        window.open("https://ndc.nexon.com/main?locale=en", "_blank");
-      }}
-    >
-      <div className="imageWrapScreen">
-        <img src={process.env.PUBLIC_URL + `${element.eventUrl}`} alt="" />
-
-        <div className="eventText">
-          <div className="eventTitle">{element.eventName}</div>
-          <div className="eventInfo">
-            {/* <div>분류: {categorys[element.eventCategory].name}</div> */}
-            <div>주최: {element.host}</div>
-            <div>일시: {element.eventDate}</div>
+          <div className="eventText">
+            <div className="eventTitle">{element.eventName}</div>
+            <div className="eventInfo">
+              <div>분류: {categorys[element.eventCategory].name}</div>
+              <div>주최: {element.host}</div>
+              <div>일시: {element.eventDate}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  ));
+    ));
 
   const columns = useMemo(
     () => [
@@ -88,9 +111,25 @@ function Home() {
     []
   );
   const data = items.item.length > 0 &&
-    items.item.map((item) => ({
+    items.item.filter((element) => {
+      if (searchTerm === "") {
+        return element;
+      } else if (
+        element.eventName.toLowerCase().includes(searchTerm.toLowerCase())
+      ) {
+        return element;
+      }
+    })
+    .filter((element)=>{
+      if (filterCategory === ""){
+        return element;
+      } else if(element.eventCategory === parseInt(filterCategory)){
+        return element;
+      }
+    })
+    .map((item) => ({
       name: item.eventName,
-      category: item.eventCategory,
+      category: categorys[item.eventCategory].name,
       host: item.host,
       link: item.eventUrl,
     }));
@@ -98,6 +137,7 @@ function Home() {
   const {eventName, eventCategory, host, eventDate, eventUrl} = inputs;
   const onInputChange = (e) =>{
     const {name, value} = e.target;
+    console.log(e)
     setInputs({
       ...inputs,
       [name]:value,
@@ -125,19 +165,34 @@ function Home() {
     })
   }
 
+  const dateFunc = (startDate,endDate) =>{
+    var startdate = startDate.getFullYear().toString()+"-"+(startDate.getMonth()+1).toString()+"-"+startDate.getDate().toString()+"("+week[startDate.getDay()]+")"
+    var enddate = endDate.getFullYear().toString()+"-"+(endDate.getMonth()+1).toString()+"-"+endDate.getDate().toString()+"("+week[endDate.getDay()]+")"
+    var date=startdate+" ~ "+enddate;
+    console.log(date)
+    setInputs({
+      ...inputs,
+      eventDate:date,
+    })
+  }
+  console.log(items)
   return (
     <div>
       <header className="header">
         <div className="title">
           <Link to="/">Pangyo-people</Link>
         </div>
+        {showSearch && <input type="text" placeholder="Search..." id="search-box" onChange={e=>{setSearchTerm(e.target.value)}}/>}
         <nav className="navbar">
           <ul>
             <Link to="/developers">
               <li>Developers</li>
             </Link>
             <li>
-              <FontAwesomeIcon id="search-btn" icon={faSearch} />
+              <FontAwesomeIcon id="search-btn" icon={faSearch} onClick={()=>{
+                setShowSearch(!showSearch);
+                setSearchTerm("");
+              }}/>
             </li>
           </ul>
         </nav>
@@ -148,15 +203,15 @@ function Home() {
             id="list-style"
             icon={faList}
             onClick={() => {
-              setVisible(!visible);
+              setShowTable(!showTable);
             }}
           />
           <div className="category-list">
             <ul>{categoryList}</ul>
           </div>
         </div>
-        {visible && <Table columns={columns} data={data} />}
-        {!visible && <div className="image-container">{imageList}</div>}
+        {showTable && <Table columns={columns} data={data} />}
+        {!showTable && <div className="image-container">{imageList}</div>}
       </div>
 
       <img
@@ -168,7 +223,6 @@ function Home() {
         }}
       />
 
-      {/* 모달창 분리해야함 */}
       <Modal className="modal" isOpen={modal} ariaHideApp={false}>
         <div className="modal-container">
           <FontAwesomeIcon
@@ -208,14 +262,15 @@ function Home() {
                 placeholder="주최 기관을 입력하세요."
               ></input>
             </div>
-            <div>
+            <div className="datePicker">
               <span>날짜</span>{" "}
-              <input
+              <Datepicker name="eventDate" dateFunc={dateFunc} value={eventDate} onChange={onInputChange}/>
+              {/* <input
                 name="eventDate"
                 value={eventDate}
                 onChange={onInputChange}
                 placeholder="날짜를 입력하세요."
-              ></input>
+              ></input> */}
             </div>
             <div>
               <span>URL</span>{" "}

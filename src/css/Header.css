@@ -25,6 +25,7 @@ body{
   .header{
     z-index: 1;
     width:100%;
+    height:60px;
     display: flex;
     align-items: center;
     padding: 15px 7.5%;
@@ -48,6 +49,12 @@ body{
     padding:0 25px;
     font-size:1em;
     color:rgba(0,0,0, 75%);
+  }
+
+  .header #search-box{
+    width:20rem;
+    border:none;
+    border-bottom: 0.6px solid #1f1f1f;
   }
 
   .container .category{
@@ -78,6 +85,11 @@ body{
     margin-bottom: -1px;
   }
 
+  .container .category .category-list li.active{
+    border-bottom: 1px solid #000;
+    margin-bottom: -1px;
+  }
+
   .container .category .org-category-list{
     width:100%;
     margin-left:2.5%;
@@ -102,4 +114,26 @@ body{
   .container .category .org-category-list li.active{
     border-bottom: 1px solid #000;
     margin-bottom: -1px;
+  }
+
+  @media (max-width:430px) {
+    .header .title{
+      font-size: 14px;
+    }
+    
+    .header .navbar li{
+      font-size: 12px;
+    }
+
+    .header .navbar li{
+      padding:0 15px;
+    }
+  
+    .container .category .category-list li{
+      font-size: 12px;
+    }
+
+    .container .category .org-category-list li{
+      font-size: 12px;
+    }
   }

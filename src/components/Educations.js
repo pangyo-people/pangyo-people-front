@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useEffect } from "react";
 import "../css/Header.css";
-import "../css/Developers.css";
 import Table from "./Table";
 import {call} from "../service/ApiService"
 

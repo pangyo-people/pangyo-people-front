@@ -3,7 +3,8 @@ export const call = (api, method, request) => {
     headers: new Headers({
       "Content-Type": "application/json",
     }),
-    url: "http://eb-pgpp-restapi-dev-tokyo-001.ap-northeast-1.elasticbeanstalk.com"+api,
+    // url: "http://eb-pgpp-restapi-dev-tokyo-001.ap-northeast-1.elasticbeanstalk.com"+api,
+    url: "https://devqwerty-restapi.pgpp.co.kr"+api,
     method: method,
   };
   if (request) {

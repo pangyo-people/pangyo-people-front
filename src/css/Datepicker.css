@@ -1,0 +1,7 @@
+.datePicker :not(.modal-container .modal-body){
+    padding:0;
+}
+.datePicker .react-datepicker__input-container input{
+    width:100px;
+    text-align: center;
+}
