@@ -3,23 +3,13 @@ import "../css/Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import Meetings from "./Meetings";
+import Organizations from "./Organizations";
 import Events from "./Events";
 import {call} from "../service/ApiService"
 
 
 function Admin() {
   let [page, setPage] = useState(0);
-
-  let [inputs, setInputs] = useState({
-    orgName: "",
-    orgDescription: "",
-    orgUrl: "",
-    orgCategory: "",
-    orgPermission: "",
-  });
-
-  let [items, setItems] = useState({ item: [] });
 
   const categorys = [
     { idx: "0", name: "Events" },
@@ -38,41 +28,10 @@ function Admin() {
 
   const obj = {
     0: <Events />,
-    1: <Meetings />,
+    1: <Organizations />,
   };
   const onClickHandler = (id) => {
     setPage(id);
-  };
-
-  const { orgName, orgDescription, orgUrl, orgCategory } = inputs;
-  const onInputChange = (e) => {
-    const { name, value } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-    console.log(name);
-    console.log(value);
-  };
-
-  const add = (item) => {
-    console.log(item);
-    item.orgPermission = "false";
-    call("/v1/api/org/write", "POST", item).then((response) =>
-      setItems({ item: response })
-    );
-    console.log(items);
-  };
-
-  const onSubmit = () => {
-    add(inputs);
-    setInputs({
-      orgName: "",
-      orgDescription: "",
-      orgUrl: "",
-      orgCategory: "",
-      orgPermission: "",
-    });
   };
 
   return (

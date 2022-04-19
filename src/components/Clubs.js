@@ -9,15 +9,15 @@ function Clubs() {
     () => [
       {
         accessor: "name",
-        Header: "Name",
+        Header: "이름",
       },
       {
         accessor: "description",
-        Header: "Description",
+        Header: "설명",
       },
       {
         accessor: "link",
-        Header: "Link",
+        Header: "링크",
       },
     ],
     []

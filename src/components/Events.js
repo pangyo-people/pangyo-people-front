@@ -1,25 +1,27 @@
 import React, { useMemo, useState, useEffect } from "react";
 import "../css/Header.css";
-import Table from "./Table";
+import TableAdmin from "./TableAdmin";
 import {call} from "../service/ApiService";
-import accessBtn from "../assets/accessBtn.svg";
-import cancelBtn from "../assets/cancelBtn.svg";
 
 function Events() {
   const [items, setItems]= useState({item:[]})
   const columns = useMemo(
     () => [
       {
-        accessor: "name",
-        Header: "Name",
+        accessor: "id",
+        Header: "Id",
       },
       {
-        accessor: "created",
-        Header: "Created",
+        accessor: "name",
+        Header: "이름",
       },
       {
         accessor: "link",
-        Header: "Link",
+        Header: "링크",
+      },
+      {
+        accessor: "created",
+        Header: "작성일",
       },
     ],
     []
@@ -27,32 +29,33 @@ function Events() {
   useEffect(()=>{
     call("/v1/api/events","GET",null).then((response)=>
     setItems({item:response}));
-    console.log(items)
   },[])
 
-  const filterItem = items.item.length > 0 && items.item.filter(element => element.eventPermission === false);
-  const data = filterItem.length > 0 &&
-    filterItem.map((item) => ({
+  const data = items.item.length > 0 &&
+    items.item.map((item) => ({
       name: item.eventName,
       link: item.eventUrl,
       created: item.eventCreated,
+      id: item.eventId,
     }));
 
-  return (
-    <div>
-      {data.length > 0 && <Table columns={columns} data={data} />}
-      <img
-        className="accessBtn"
-        src={accessBtn}
-        alt=""
-      />
-    <img
-        className="cancelBtn"
-        src={cancelBtn}
-        alt=""
-      />
-    </div>
-  );
+    const updateItem=(item)=>{
+      call(`/v1/api/admin/orgs/${item}`,"PUT",null).then((response)=>
+        setItems({item:response})
+      );
+    }
+  
+    const deleteItem=(item)=>{
+      call(`/v1/api/admin/orgs/${item}`,"DELETE",null).then((response)=>
+        setItems({item:response})
+      );
+    };
+  
+    return (
+      <div>
+        {data.length > 0 && <TableAdmin columns={columns} data={data} updateItem={updateItem} deleteItem={deleteItem} />}
+      </div>
+    );
 }
 
 export default Events;

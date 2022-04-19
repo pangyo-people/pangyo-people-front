@@ -9,7 +9,7 @@ import Meetings from "./Meetings";
 import Educations from "./Educations";
 import Sessions from "./Sessions";
 import Clubs from "./Clubs";
-import Select from "react-select";
+import logo from "../assets/logo.png";
 import {call} from "../service/ApiService"
 
 function DevelopersPage() {
@@ -84,13 +84,10 @@ function DevelopersPage() {
     <div>
       <header className="header">
         <div className="title">
-          <Link to="/">Pangyo-people</Link>
+          <Link to="/"><img className="logoImg" src={logo}></img></Link>
         </div>
         <nav className="navbar">
           <ul>
-            <Link to="/">
-              <li>Home</li>
-            </Link>
             <li>
               <FontAwesomeIcon id="search-btn" icon={faSearch} />
             </li>
