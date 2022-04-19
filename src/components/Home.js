@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Table from "../components/Table";
 import {call} from "../service/ApiService";
 import Datepicker from "./Datepicker";
+import logo from "../assets/logo.png";
 
 function Home() {
   const [modal, setModal] = useState(false);
@@ -80,7 +81,7 @@ function Home() {
           <div className="eventText">
             <div className="eventTitle">{element.eventName}</div>
             <div className="eventInfo">
-              <div>분류: {categorys[element.eventCategory].name}</div>
+              {/* <div>분류: {categorys[element.eventCategory].name}</div> */}
               <div>주최: {element.host}</div>
               <div>일시: {element.eventDate}</div>
             </div>
@@ -129,7 +130,7 @@ function Home() {
     })
     .map((item) => ({
       name: item.eventName,
-      category: categorys[item.eventCategory].name,
+      // category: categorys[item.eventCategory].name,
       host: item.host,
       link: item.eventUrl,
     }));
@@ -180,13 +181,13 @@ function Home() {
     <div>
       <header className="header">
         <div className="title">
-          <Link to="/">Pangyo-people</Link>
+          <Link to="/"><img className="logoImg" src={logo}></img></Link>
         </div>
         {showSearch && <input type="text" placeholder="Search..." id="search-box" onChange={e=>{setSearchTerm(e.target.value)}}/>}
         <nav className="navbar">
           <ul>
             <Link to="/developers">
-              <li>Developers</li>
+              <li className="archive">Archive</li>
             </Link>
             <li>
               <FontAwesomeIcon id="search-btn" icon={faSearch} onClick={()=>{
