@@ -9,7 +9,7 @@
 <br>
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/47745785/162581155-2826c980-0bdd-4f1f-9bae-a1d6acb0d93d.jpg" alt="botobo-logo" height="280">
+    <img src="https://user-images.githubusercontent.com/47745785/164159778-bc701749-850a-4fff-a2b6-6e670a7a9242.png" alt="pgpp-logo">
 </p>
 
 <p align="center">
