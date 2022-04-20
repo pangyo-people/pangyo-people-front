@@ -9,7 +9,7 @@
 <br>
 
 <p align="center">
-    <img src="https://user-images.githubusercontent.com/47745785/164159778-bc701749-850a-4fff-a2b6-6e670a7a9242.png" alt="pgpp-logo">
+    <img src="https://user-images.githubusercontent.com/47745785/164159778-bc701749-850a-4fff-a2b6-6e670a7a9242.png" alt="pgpp-logo" width="400">
 </p>
 
 <p align="center">
