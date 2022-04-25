@@ -28,9 +28,15 @@ function Home() {
   });
   const week=['일','월','화','수','목','금','토'];
   useEffect(()=>{
-    call("/v1/api/events","GET",null).then((response)=>
-    setItems({item:response}));
-  },[])
+    var loading = true;
+    if(loading){
+      call("/v1/api/events","GET",null).then((response)=>
+      setItems({item:response}));
+    }
+    return () => {
+      loading=false;
+    }
+  },[setItems]);
 
 
   const categorys = [
@@ -47,7 +53,7 @@ function Home() {
     { idx: "10", name: "클라우드" },
     { idx: "11", name: "프로젝트" },
   ];
-  const categoryList = categorys.map((element,idx) => <li key={idx} className={`${parseInt(filterCategory)===idx? 'active' : ''}`} onClick={()=>{setFilterCategory(element.idx); console.log(element.idx)}}>{element.name}</li>);
+  const categoryList = categorys.map((element,idx) => <li key={idx} className={`${parseInt(filterCategory)===idx? 'active' : ''}`} onClick={()=>{setFilterCategory(element.idx);}}>{element.name}</li>);
   const imageList =
   items.item.length > 0 &&
   items.item
@@ -138,13 +144,10 @@ function Home() {
   const {eventName, eventCategory, host, eventDate, eventUrl} = inputs;
   const onInputChange = (e) =>{
     const {name, value} = e.target;
-    console.log(e)
     setInputs({
       ...inputs,
       [name]:value,
     })
-    console.log(name)
-    console.log(value)
   }
 
   const add = (item) =>{
@@ -170,13 +173,11 @@ function Home() {
     var startdate = startDate.getFullYear().toString()+"-"+(startDate.getMonth()+1).toString()+"-"+startDate.getDate().toString()+"("+week[startDate.getDay()]+")"
     var enddate = endDate.getFullYear().toString()+"-"+(endDate.getMonth()+1).toString()+"-"+endDate.getDate().toString()+"("+week[endDate.getDay()]+")"
     var date=startdate+" ~ "+enddate;
-    console.log(date)
     setInputs({
       ...inputs,
       eventDate:date,
     })
   }
-  console.log(items)
   return (
     <div>
       <header className="header">
@@ -248,7 +249,7 @@ function Home() {
               <span>카테고리</span>{" "}
               <select onChange={onInputChange} name="eventCategory"value={eventCategory}>
                 {categorys.map((element) => (
-                  <option key={element.idx} defaultValue="0" value={element.idx}>
+                  <option key={element.idx} selected={eventCategory===element.data} value={element.idx}>
                     {element.name}
                   </option>
                 ))}

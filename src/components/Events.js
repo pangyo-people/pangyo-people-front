@@ -27,12 +27,19 @@ function Events() {
     []
   );
   useEffect(()=>{
-    call("/v1/api/events","GET",null).then((response)=>
-    setItems({item:response}));
-  },[])
+    var loading = true;
+    if(loading){
+      call("/v1/api/events","GET",null).then((response)=>
+      setItems({item:response}));
+    }
+    return () => {
+      loading=false;
+    }
+  },[setItems]);
 
-  const data = items.item.length > 0 &&
-    items.item.map((item) => ({
+  const filterData=items.item.length>0 && items.item.filter((element)=>element.eventPermission===false) 
+  const data = filterData.length > 0 &&
+    filterData.map((item) => ({
       name: item.eventName,
       link: item.eventUrl,
       created: item.eventCreated,
