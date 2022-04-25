@@ -24,11 +24,17 @@ function Sessions() {
   );
 
   useEffect(()=>{
-    call("/v1/api/org/SESSIONS","GET",null).then((response)=>
-    setItems({item:response}));
-  },[])
+    var loading = true;
+    if(loading){
+      call("/v1/api/org/SESSIONS","GET",null).then((response)=>
+      setItems({item:response}));
+    }
+    return () => {
+      loading=false;
+    }
+  },[setItems]);
 
-  const filterItem = items.item.length > 0 && items.item.filter(element => element.orgCategory === "SESSIONS");
+  const filterItem = items.item.length > 0 && items.item.filter(element => element.orgCategory === "SESSIONS" && element.orgPermission === true);
   const data = filterItem.length > 0 &&
     filterItem.map((item) => ({
       name: item.orgName,

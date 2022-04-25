@@ -13,8 +13,10 @@ import logo from "../assets/logo.png";
 import {call} from "../service/ApiService"
 
 function DevelopersPage() {
-    let [modal, setModal] = useState(false);
-    let [page,setPage] = useState(0);
+    const [modal, setModal] = useState(false);
+    const [page,setPage] = useState(0);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [showSearch,setShowSearch] = useState(false);
 
     let [inputs, setInputs] = useState({
       orgName: "",
@@ -55,17 +57,13 @@ function DevelopersPage() {
       ...inputs,
       [name]: value,
     });
-    console.log(name)
-    console.log(value)
   };
 
   const add = (item) => {
-    console.log(item);
     item.orgPermission = "false";
     call("/v1/api/org/write","POST",item)
     .then((response)=>
     setItems({item:response}))
-    console.log(items);
   };
 
   const onSubmit = () => {
@@ -86,10 +84,14 @@ function DevelopersPage() {
         <div className="title">
           <Link to="/"><img className="logoImg" src={logo}></img></Link>
         </div>
+        {showSearch && <input type="text" placeholder="Search..." id="search-box" onChange={e=>{setSearchTerm(e.target.value)}}/>}
         <nav className="navbar">
           <ul>
             <li>
-              <FontAwesomeIcon id="search-btn" icon={faSearch} />
+              <FontAwesomeIcon id="search-btn" icon={faSearch} onClick={()=>{
+                setShowSearch(!showSearch)
+                setSearchTerm("");
+                }}/>
             </li>
           </ul>
         </nav>
@@ -130,9 +132,9 @@ function DevelopersPage() {
             </div>
             <div>
               <span>카테고리</span>
-              <select onChange={onInputChange} name="orgCategory" options={categorys} value={orgCategory}>
+              <select onChange={onInputChange} name="orgCategory" value={orgCategory}>
                 {categorys.map((element) => (
-                  <option key={element.idx} value={element.data}>
+                  <option key={element.idx} value={element.data} selected={orgCategory===element.data}>
                     {element.name}
                   </option>
                 ))}
