@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faList, faRemove } from "@fortawesome/free-solid-svg-icons";
 import writeBtn from "../assets/write.svg";
 import Modal from "react-modal";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Table from "../components/Table";
 import {call} from "../service/ApiService";
 import Datepicker from "./Datepicker";
@@ -13,20 +13,25 @@ import logo from "../assets/logo.png";
 
 function Home() {
   const [modal, setModal] = useState(false);
+  const [message, setMessage] = useState(false);
   const [showTable,setShowTable] = useState(false);
   const [items, setItems] = useState({item:[]});
   const [searchTerm, setSearchTerm] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
   const [showSearch,setShowSearch] = useState(false);
+  const [categoryId,setCategoryId] = useState([]);
   const [inputs, setInputs] = useState({
     eventName: "",
-    eventCategory:"",
+    categories:"",
     host:"",
-    eventDate:"",
+    startDate:"",
+    endDate:"",
     eventUrl:"",
+    imageUrl:"",
     eventPermission: "",
   });
   const week=['일','월','화','수','목','금','토'];
+  const navigate = useNavigate();
   useEffect(()=>{
     var loading = true;
     if(loading){
@@ -40,18 +45,18 @@ function Home() {
 
 
   const categorys = [
-    { idx: "0", name: "AI" },
-    { idx: "1", name: "Android" },
-    { idx: "2", name: "iOS" },
-    { idx: "3", name: "경진대회" },
-    { idx: "4", name: "교육" },
-    { idx: "5", name: "빅데이터" },
-    { idx: "6", name: "동아리" },
-    { idx: "7", name: "멘토링" },
-    { idx: "8", name: "보안" },
-    { idx: "9", name: "컨퍼런스" },
-    { idx: "10", name: "클라우드" },
-    { idx: "11", name: "프로젝트" },
+    { idx: "0", name: "모바일" },
+    { idx: "1", name: "프론트엔드" },
+    { idx: "2", name: "백엔드" },
+    { idx: "3", name: "클라우드" },
+    { idx: "4", name: "빅데이터" },
+    { idx: "5", name: "AI" },
+    { idx: "6", name: "보안" },
+    { idx: "7", name: "교육" },
+    { idx: "8", name: "경진대회" },
+    { idx: "9", name: "동아리" },
+    { idx: "10", name: "컨퍼런스" },
+    { idx: "11", name: "해커톤" },
   ];
   const categoryList = categorys.map((element,idx) => <li key={idx} className={`${parseInt(filterCategory)===idx? 'active' : ''}`} onClick={()=>{setFilterCategory(element.idx);}}>{element.name}</li>);
   const imageList =
@@ -66,13 +71,14 @@ function Home() {
         return element;
       }
     })
-    .filter((element)=>{
-      if (filterCategory === ""){
-        return element;
-      } else if(element.eventCategory === parseInt(filterCategory)){
-        return element;
-      }
-    })
+    // 카테고리 필터링 작성해야함
+    // .filter((element)=>{
+    //   if (filterCategory === ""){
+    //     return element;
+    //   } else if(element.categories === parseInt(filterCategory)){
+    //     return element;
+    //   }
+    // })
     .map((element) => (
       //링크 사이트 이미지 가져오는 방법 알아낸 후 event_url 교체하고 적용해야함.
       <div
@@ -89,7 +95,7 @@ function Home() {
             <div className="eventInfo">
               {/* <div>분류: {categorys[element.eventCategory].name}</div> */}
               <div>주최: {element.host}</div>
-              <div>일시: {element.eventDate}</div>
+              <div>일시: {element.startDate} ~ {element.endDate}</div>
             </div>
           </div>
         </div>
@@ -127,13 +133,14 @@ function Home() {
         return element;
       }
     })
-    .filter((element)=>{
-      if (filterCategory === ""){
-        return element;
-      } else if(element.eventCategory === parseInt(filterCategory)){
-        return element;
-      }
-    })
+    // 카테고리 필터링 작성해야함
+    // .filter((element)=>{
+    //   if (filterCategory === ""){
+    //     return element;
+    //   } else if(element.eventCategory === parseInt(filterCategory)){
+    //     return element;
+    //   }
+    // })
     .map((item) => ({
       name: item.eventName,
       // category: categorys[item.eventCategory].name,
@@ -141,7 +148,7 @@ function Home() {
       link: item.eventUrl,
     }));
   
-  const {eventName, eventCategory, host, eventDate, eventUrl} = inputs;
+  const {eventName, host, Date, eventUrl} = inputs;
   const onInputChange = (e) =>{
     const {name, value} = e.target;
     setInputs({
@@ -152,49 +159,73 @@ function Home() {
 
   const add = (item) =>{
     item.eventPermission="false";
-    call("/v1/api/events/write","POST",item)
-    .then((response)=>
-    setItems({item:response}))
+    item.categories=categoryId.sort((a,b)=>a-b);
+    // call("/v1/api/events/write","POST",item)
+    // .then((response)=>
+    // setItems({item:response}))
+    console.log(item)
   }
 
   const onSubmit = ()=>{
     add(inputs);
     setInputs({
-      eventName: "",
-      eventCategory:"",
-      host:"",
-      eventDate:"",
-      eventUrl:"",
-      eventPermission: "",
-    })
+        eventName: "",
+        categories:"",
+        host:"",
+        startDate:"",
+        endDate:"",
+        eventUrl:"",
+        imageUrl:"",
+        eventPermission: "",
+    });
+    setCategoryId([]);
+    setMessage(true);
   }
 
   const dateFunc = (startDate,endDate) =>{
-    var startdate = startDate.getFullYear().toString()+"-"+(startDate.getMonth()+1).toString()+"-"+startDate.getDate().toString()+"("+week[startDate.getDay()]+")"
-    var enddate = endDate.getFullYear().toString()+"-"+(endDate.getMonth()+1).toString()+"-"+endDate.getDate().toString()+"("+week[endDate.getDay()]+")"
-    var date=startdate+" ~ "+enddate;
+    // var startdate = startDate.getFullYear().toString()+"-"+(startDate.getMonth()+1).toString()+"-"+startDate.getDate().toString()+"("+week[startDate.getDay()]+")"
+    // var enddate = endDate.getFullYear().toString()+"-"+(endDate.getMonth()+1).toString()+"-"+endDate.getDate().toString()+"("+week[endDate.getDay()]+")"
+    var startdate = startDate.getFullYear().toString()+"-"+(startDate.getMonth()+1).toString()+"-"+startDate.getDate().toString()
+    var enddate = endDate.getFullYear().toString()+"-"+(endDate.getMonth()+1).toString()+"-"+endDate.getDate().toString()
     setInputs({
       ...inputs,
-      eventDate:date,
+      startDate:startdate,
+      endDate:enddate
     })
   }
+
   return (
     <div>
       <header className="header">
         <div className="title">
-          <Link to="/"><img className="logoImg" src={logo}></img></Link>
+          <Link to="/">
+            <img className="logoImg" src={logo}></img>
+          </Link>
         </div>
-        {showSearch && <input type="text" placeholder="Search..." id="search-box" onChange={e=>{setSearchTerm(e.target.value)}}/>}
+        {showSearch && (
+          <input
+            type="text"
+            placeholder="Search..."
+            id="search-box"
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+            }}
+          />
+        )}
         <nav className="navbar">
           <ul>
             <Link to="/developers">
               <li className="archive">Archive</li>
             </Link>
             <li>
-              <FontAwesomeIcon id="search-btn" icon={faSearch} onClick={()=>{
-                setShowSearch(!showSearch);
-                setSearchTerm("");
-              }}/>
+              <FontAwesomeIcon
+                id="search-btn"
+                icon={faSearch}
+                onClick={() => {
+                  setShowSearch(!showSearch);
+                  setSearchTerm("");
+                }}
+              />
             </li>
           </ul>
         </nav>
@@ -246,14 +277,33 @@ function Home() {
               ></input>
             </div>
             <div>
-              <span>카테고리</span>{" "}
-              <select onChange={onInputChange} name="eventCategory"value={eventCategory}>
+              <span className="categoryTitle">카테고리</span>
+              <div className="categorys">
+                {/* <select onChange={onInputChange} name="eventCategory" value={eventCategory}> */}
                 {categorys.map((element) => (
-                  <option key={element.idx} selected={eventCategory===element.data} value={element.idx}>
+                  <button
+                    className={
+                      "categoryList" +
+                      `${categoryId.includes(element.idx) ? "Select" : ""}`
+                    }
+                    onClick={() => {
+                      !categoryId.includes(element.idx)
+                        ? setCategoryId((item) => [...item, element.idx])
+                        : setCategoryId(
+                            categoryId.filter(
+                              (button) => button !== element.idx
+                            )
+                          );
+                      console.log(categoryId);
+                    }}
+                    name="categories"
+                    value={element.idx}
+                  >
                     {element.name}
-                  </option>
+                  </button>
                 ))}
-              </select>
+              </div>
+              {/* </select> */}
             </div>
             <div>
               <span>주최</span>{" "}
@@ -264,9 +314,16 @@ function Home() {
                 placeholder="주최 기관을 입력하세요."
               ></input>
             </div>
-            <div className="datePicker">
+            <div>
               <span>날짜</span>{" "}
-              <Datepicker name="eventDate" dateFunc={dateFunc} value={eventDate} onChange={onInputChange}/>
+              <div className="datePicker">
+                <Datepicker
+                  name="Date"
+                  dateFunc={dateFunc}
+                  value={Date}
+                  onChange={onInputChange}
+                />
+              </div>
               {/* <input
                 name="eventDate"
                 value={eventDate}
@@ -292,6 +349,24 @@ function Home() {
               }}
             >
               작성
+            </button>
+          </div>
+        </div>
+      </Modal>
+
+      <Modal ariaHideApp={false} className="modal" isOpen={message}>
+        <div className="message-container">
+          <div className="message-body">
+            <div>작성이 완료되었습니다.</div>
+            <div>관리자 승인 후 확인하실 수 있습니다.</div>
+            <button
+              className="sendBtn"
+              onClick={() => {
+                setMessage(false);
+                navigate("/");
+              }}
+            >
+              확인
             </button>
           </div>
         </div>
