@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../css/Header.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch, faRemove } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import addBtn from "../assets/addBtn.svg";
 import Modal from "react-modal";
 import Meetings from "./Meetings";
@@ -14,15 +14,17 @@ import {call} from "../service/ApiService"
 
 function DevelopersPage() {
     const [modal, setModal] = useState(false);
+    const [message, setMessage] = useState(false);
     const [page,setPage] = useState(0);
     const [searchTerm, setSearchTerm] = useState("");
     const [showSearch,setShowSearch] = useState(false);
+    const navigate = useNavigate();
 
     let [inputs, setInputs] = useState({
       orgName: "",
       orgDescription: "",
       orgUrl: "",
-      orgCategory: "",
+      orgCategory: "CLUBS",
       orgPermission: "",
     });
   
@@ -64,6 +66,7 @@ function DevelopersPage() {
     call("/v1/api/org/write","POST",item)
     .then((response)=>
     setItems({item:response}))
+    console.log(item)
   };
 
   const onSubmit = () => {
@@ -72,9 +75,10 @@ function DevelopersPage() {
       orgName: "",
       orgDescription: "",
       orgUrl: "",
-      orgCategory: "",
+      orgCategory: "CLUBS",
       orgPermission: "",
     });
+    setMessage(true);
   };
 
 
@@ -134,7 +138,7 @@ function DevelopersPage() {
               <span>카테고리</span>
               <select onChange={onInputChange} name="orgCategory" value={orgCategory}>
                 {categorys.map((element) => (
-                  <option key={element.idx} value={element.data} selected={orgCategory===element.data}>
+                  <option key={element.idx} value={element.data}>
                     {element.name}
                   </option>
                 ))}
@@ -159,6 +163,25 @@ function DevelopersPage() {
             </button>
           </div>
         </div>
+      </Modal>
+
+      <Modal ariaHideApp={false} className="modal" isOpen={message}>
+        <div className="message-container">
+        <div className="message-body">
+
+        <div>작성이 완료되었습니다.</div>
+        <div>관리자 승인 후 확인하실 수 있습니다.</div>
+        <button
+              className="sendBtn"
+              onClick={() => {
+                setMessage(false);
+                navigate("/developers");
+              }}
+            >
+              확인
+            </button>
+            </div>
+            </div>
       </Modal>
     </div>
   )
