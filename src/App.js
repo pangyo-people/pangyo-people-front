@@ -4,7 +4,7 @@ import Home from "./components/Home";
 import DevelopersPage from "./components/Developers";
 import NotFound from "./components/NotFound";
 import { ErrorBoundary } from "react-error-boundary";
-
+import Test from "./components/Test";
 function App() {
   
 
@@ -13,7 +13,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" exact={true} element={<Home />} />
-          <Route path="/developers" element={<DevelopersPage />} />
+          <Route path="/archive" element={<DevelopersPage />} />
           <Route path={"*"} element={<NotFound />} />
         </Routes>
       </BrowserRouter>
