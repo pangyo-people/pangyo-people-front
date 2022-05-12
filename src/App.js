@@ -4,7 +4,6 @@ import Home from "./components/Home";
 import DevelopersPage from "./components/Developers";
 import NotFound from "./components/NotFound";
 import { ErrorBoundary } from "react-error-boundary";
-import Test from "./components/Test";
 function App() {
   
 
