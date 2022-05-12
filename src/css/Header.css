@@ -42,6 +42,7 @@ body{
     font-size: 1.2em;
     font-weight: bold;
     margin-right: auto;
+    cursor: pointer;
   }
 
   .header .title .logoImg{
@@ -56,7 +57,9 @@ body{
     font-size:1em;
     color:rgba(0,0,0, 75%);
   }
-
+  .header .navbar .search-btn{
+    cursor: pointer;
+  }
   .header .navbar .archive{
     border: 1px solid rgba(0,0,0, 75%);
     font-weight: bold;
@@ -75,7 +78,11 @@ body{
     display:flex;
     align-items: center;
     margin: 1%;
-    padding-top: 10px;
+    padding: 10px 0 4px 0;
+  }
+  
+  .container .category .list-style{
+    cursor: pointer;
   }
   
   .container .category .category-list{
@@ -90,8 +97,9 @@ body{
   }
   
   .container .category .category-list li{
-    padding:0 5px;
+    padding:0 4px;
     float:left;
+    cursor: pointer;
   }
   
   .container .category .category-list ul :hover{

@@ -32,7 +32,7 @@ function Table({ columns, data }) {
                         <td
                           className="tableLink"
                           onClick={() => {
-                            window.open("https://" + `${cell.value}`, "_blank");
+                            window.open(`${cell.value}`, "_blank");
                           }}
                           {...cell.getCellProps()}
                         >

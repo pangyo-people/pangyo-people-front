@@ -17,7 +17,7 @@ function Home() {
   const [showTable,setShowTable] = useState(false);
   const [items, setItems] = useState({item:[]});
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterCategory, setFilterCategory] = useState("");
+  const [filterCategory, setFilterCategory] = useState([]);
   const [showSearch,setShowSearch] = useState(false);
   const [categoryId,setCategoryId] = useState([]);
   const [inputs, setInputs] = useState({
@@ -58,7 +58,9 @@ function Home() {
     { idx: "10", name: "컨퍼런스" },
     { idx: "11", name: "해커톤" },
   ];
-  const categoryList = categorys.map((element,idx) => <li key={idx} className={`${parseInt(filterCategory)===idx? 'active' : ''}`} onClick={()=>{setFilterCategory(element.idx);}}>{element.name}</li>);
+  const categoryList = categorys.map((element,idx) => <li key={idx} className={`${filterCategory.includes(element.idx)? 'active' : ''}`} onClick={()=>{
+      !filterCategory.includes(element.idx) ? setFilterCategory([...filterCategory,element.idx]) : setFilterCategory(filterCategory.filter((item)=>item!==element.idx));
+    }}>{element.name}</li>);
   const imageList =
   items.item.length > 0 &&
   items.item
@@ -71,14 +73,13 @@ function Home() {
         return element;
       }
     })
-    // 카테고리 필터링 작성해야함
-    // .filter((element)=>{
-    //   if (filterCategory === ""){
-    //     return element;
-    //   } else if(element.categories === parseInt(filterCategory)){
-    //     return element;
-    //   }
-    // })
+    .filter((element)=>{
+      if (filterCategory.length===0){
+        return element;
+      } else if (filterCategory.filter(item=>element.categories.includes(Number(item))).length!==0){
+        return element;
+      }
+    })
     .map((element) => (
       //링크 사이트 이미지 가져오는 방법 알아낸 후 event_url 교체하고 적용해야함.
       <div
@@ -88,12 +89,12 @@ function Home() {
         }}
       >
         <div className="imageWrapScreen">
-          <img src={process.env.PUBLIC_URL + `${element.eventUrl}`} alt="" />
+          <img src={/*process.env.PUBLIC_URL*/"https://"+`${element.imageUrl}`} alt="" />
 
           <div className="eventText">
             <div className="eventTitle">{element.eventName}</div>
             <div className="eventInfo">
-              {/* <div>분류: {categorys[element.eventCategory].name}</div> */}
+              <div>분류: {element.categories.map(item=>categorys[item].name+" ")}</div>
               <div>주최: {element.host}</div>
               <div>일시: {element.startDate} ~ {element.endDate}</div>
             </div>
@@ -101,6 +102,7 @@ function Home() {
         </div>
       </div>
     ));
+    console.log(items)
 
   const columns = useMemo(
     () => [
@@ -133,20 +135,20 @@ function Home() {
         return element;
       }
     })
-    // 카테고리 필터링 작성해야함
-    // .filter((element)=>{
-    //   if (filterCategory === ""){
-    //     return element;
-    //   } else if(element.eventCategory === parseInt(filterCategory)){
-    //     return element;
-    //   }
-    // })
+    .filter((element)=>{
+      if (filterCategory.length===0){
+        return element;
+      } else if (filterCategory.filter(item=>element.categories.includes(Number(item))).length!==0){
+        return element;
+      }
+    })
     .map((item) => ({
       name: item.eventName,
-      // category: categorys[item.eventCategory].name,
+      category: item.categories.map(element=>categorys[element].name+" "),
       host: item.host,
       link: item.eventUrl,
     }));
+
   
   const {eventName, host, Date, eventUrl} = inputs;
   const onInputChange = (e) =>{
@@ -159,13 +161,12 @@ function Home() {
 
   const add = (item) =>{
     item.eventPermission="false";
-    item.categories=categoryId.sort((a,b)=>a-b);
-    // call("/v1/api/events/write","POST",item)
-    // .then((response)=>
-    // setItems({item:response}))
+    item.categories=categoryId.map(Number).sort((a,b)=>a-b);
+    call("/v1/api/event/write","POST",item)
+    .then((response)=>
+    setItems({item:response}))
     console.log(item)
   }
-
   const onSubmit = ()=>{
     add(inputs);
     setInputs({
@@ -181,7 +182,6 @@ function Home() {
     setCategoryId([]);
     setMessage(true);
   }
-
   const dateFunc = (startDate,endDate) =>{
     // var startdate = startDate.getFullYear().toString()+"-"+(startDate.getMonth()+1).toString()+"-"+startDate.getDate().toString()+"("+week[startDate.getDay()]+")"
     // var enddate = endDate.getFullYear().toString()+"-"+(endDate.getMonth()+1).toString()+"-"+endDate.getDate().toString()+"("+week[endDate.getDay()]+")"
@@ -197,10 +197,8 @@ function Home() {
   return (
     <div>
       <header className="header">
-        <div className="title">
-          <Link to="/">
+        <div className="title" onClick={()=>{window.location.replace("/")}}>
             <img className="logoImg" src={logo}></img>
-          </Link>
         </div>
         {showSearch && (
           <input
@@ -214,12 +212,12 @@ function Home() {
         )}
         <nav className="navbar">
           <ul>
-            <Link to="/developers">
+            <Link to="/archive">
               <li className="archive">Archive</li>
             </Link>
             <li>
               <FontAwesomeIcon
-                id="search-btn"
+                className="search-btn"
                 icon={faSearch}
                 onClick={() => {
                   setShowSearch(!showSearch);
@@ -233,7 +231,7 @@ function Home() {
       <div className="container">
         <div className="category">
           <FontAwesomeIcon
-            id="list-style"
+            className="list-style"
             icon={faList}
             onClick={() => {
               setShowTable(!showTable);
@@ -267,7 +265,7 @@ function Home() {
           />
           <div className="modal-header">게시글 작성</div>
           <div className="modal-body">
-            <div>
+            <div className="modal-content">
               <span>행사명</span>{" "}
               <input
                 onChange={onInputChange}
@@ -276,10 +274,9 @@ function Home() {
                 placeholder="행사명을 입력하세요."
               ></input>
             </div>
-            <div>
+            <div className="modal-content">
               <span className="categoryTitle">카테고리</span>
               <div className="categorys">
-                {/* <select onChange={onInputChange} name="eventCategory" value={eventCategory}> */}
                 {categorys.map((element) => (
                   <button
                     className={
@@ -294,8 +291,8 @@ function Home() {
                               (button) => button !== element.idx
                             )
                           );
-                      console.log(categoryId);
-                    }}
+                    }
+                }
                     name="categories"
                     value={element.idx}
                   >
@@ -305,7 +302,7 @@ function Home() {
               </div>
               {/* </select> */}
             </div>
-            <div>
+            <div className="modal-content">
               <span>주최</span>{" "}
               <input
                 name="host"
@@ -314,7 +311,7 @@ function Home() {
                 placeholder="주최 기관을 입력하세요."
               ></input>
             </div>
-            <div>
+            <div className="modal-content">
               <span>날짜</span>{" "}
               <div className="datePicker">
                 <Datepicker
@@ -324,14 +321,8 @@ function Home() {
                   onChange={onInputChange}
                 />
               </div>
-              {/* <input
-                name="eventDate"
-                value={eventDate}
-                onChange={onInputChange}
-                placeholder="날짜를 입력하세요."
-              ></input> */}
             </div>
-            <div>
+            <div className="modal-content">
               <span>URL</span>{" "}
               <input
                 name="eventUrl"
@@ -363,7 +354,7 @@ function Home() {
               className="sendBtn"
               onClick={() => {
                 setMessage(false);
-                navigate("/");
+                window.location.replace("/");
               }}
             >
               확인
