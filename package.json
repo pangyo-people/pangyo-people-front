@@ -32,7 +32,7 @@
     "react-tiny-link": "^3.6.1",
     "reactjs-meta-scraper": "^1.0.1",
     "styled-components": "^5.3.3",
-    "swagger-ui-react": "^4.10.0",
+    "swagger-ui-react": "^4.11.1",
     "util": "^0.12.4",
     "web-vitals": "^2.1.4",
     "webpack": "^4.46.0"
