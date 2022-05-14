@@ -1,11 +1,11 @@
-name: build and deploy(production)
+name: build and deploy(dev)
 on:
   push: 
-    branches: [main]
+    branches: [deploy-dev]
 
 jobs:
-  develop_production:
-    name: build and deploy production code
+  deploy_dev:
+    name: build and deploy dev code
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,7 +24,7 @@ jobs:
         with:
           args: --acl public-read --follow-symlinks --delete
         env:
-          AWS_S3_BUCKET: ${{ secrets.AWS_PROD_S3_BUCKET }}
+          AWS_S3_BUCKET: ${{ secrets.AWS_DEV_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}     
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: 'ap-northeast-2'  
@@ -33,7 +33,7 @@ jobs:
       - name: Invalidate CloudFront
         uses: chetan/invalidate-cloudfront-action@v2
         env:
-          DISTRIBUTION: ${{secrets.PROD_AWS_DISTRIBUTION_ID}}
+          DISTRIBUTION: ${{secrets.DEV_AWS_DISTRIBUTION_ID}}
           PATHS: "/*"
           AWS_REGION: "ap-northeast-2"
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

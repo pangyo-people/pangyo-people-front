@@ -2,10 +2,10 @@ name: build(dev)
 
 on:  
   pull_request:
-    branches: [develop-deploy]
+    branches: [deploy-dev, main]
 
 jobs:
-  dev_build:
+  build:
     name: build dev code
     runs-on: ubuntu-latest
 

@@ -1,7 +1,7 @@
 name: Auto Assign
 on:
   pull_request:
-    branches: [develop-deploy]
+    branches: [deploy-dev, main]
 
 jobs:
   add_reviews:
@@ -17,4 +17,3 @@ jobs:
       - uses: andymckay/labeler@master
         with:
           add-labels: "frontend code, review request"
-          
