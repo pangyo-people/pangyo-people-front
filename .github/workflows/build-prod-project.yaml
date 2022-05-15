@@ -1,17 +1,21 @@
-name: build(dev)
+name: build(production)
 
 on:  
   pull_request:
-    branches: [deploy-dev, main]
+    branches: [main]
 
 jobs:
-  build:
+  build_prod:
     name: build dev code
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@master
+      
+      - name: Setting .env
+        run: |
+          echo "REACT_APP_API_SERVER_URL=${{ secrets.REACT_APP_PROD_API_SERVER_URL}}" >> .env
 
       - name: Install Dependencies
         run: npm install
