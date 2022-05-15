@@ -11,6 +11,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@master
 
+      - name: Setting .env
+        run: |
+          echo "REACT_APP_API_SERVER_URL=${{ secrets.REACT_APP_DEV_API_SERVER_URL}}" >> .env
+
       - name: Install Dependencies
         run: npm install
 
