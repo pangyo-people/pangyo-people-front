@@ -66,7 +66,6 @@ function DevelopersPage() {
     call("/v1/api/org/write","POST",item)
     .then((response)=>
     setItems({item:response}))
-    console.log(item)
   };
 
   const onSubmit = () => {
@@ -175,7 +174,7 @@ function DevelopersPage() {
               className="sendBtn"
               onClick={() => {
                 setMessage(false);
-                navigate("/developers");
+                navigate("/archive");
               }}
             >
               확인
