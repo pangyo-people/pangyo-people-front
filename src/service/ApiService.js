@@ -1,10 +1,10 @@
+const API_SERVER_URL=process.env.REACT_APP_API_SERVER_URL
 export const call = (api, method, request) => {
   let options = {
     headers: new Headers({
       "Content-Type": "application/json",
     }),
-    // url: "http://eb-pgpp-restapi-dev-tokyo-001.ap-northeast-1.elasticbeanstalk.com"+api,
-    url: "https://devqwerty-restapi.pgpp.co.kr"+api,
+    url: API_SERVER_URL+api,
     method: method,
   };
   if (request) {
