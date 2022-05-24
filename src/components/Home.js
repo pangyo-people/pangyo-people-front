@@ -27,8 +27,6 @@ function Home() {
     startDate:"",
     endDate:"",
     eventUrl:"",
-    imageUrl:"",
-    eventPermission: "",
   });
   const week=['일','월','화','수','목','금','토'];
   const navigate = useNavigate();
@@ -47,7 +45,7 @@ function Home() {
   const categorys = [
     { idx: "0", name: "모바일" },
     { idx: "1", name: "프론트엔드" },
-    { idx: "2", name: "백엔드" },
+    { idx: "2", name: "서버" },
     { idx: "3", name: "클라우드" },
     { idx: "4", name: "빅데이터" },
     { idx: "5", name: "AI" },
@@ -61,6 +59,7 @@ function Home() {
   const categoryList = categorys.map((element,idx) => <li key={idx} className={`${filterCategory.includes(element.idx)? 'active' : ''}`} onClick={()=>{
       !filterCategory.includes(element.idx) ? setFilterCategory([...filterCategory,element.idx]) : setFilterCategory(filterCategory.filter((item)=>item!==element.idx));
     }}>{element.name}</li>);
+
   const imageList =
   items.item.length > 0 &&
   items.item
@@ -81,15 +80,14 @@ function Home() {
       }
     })
     .map((element) => (
-      //링크 사이트 이미지 가져오는 방법 알아낸 후 event_url 교체하고 적용해야함.
       <div
         className="imageWrap"
         onClick={() => {
-          window.open("https://ndc.nexon.com/main?locale=en", "_blank");
+          window.open(`${element.eventUrl.substr(0,5)==="https"? element.eventUrl : "https://"+element.eventUrl}`, "_blank");
         }}
       >
         <div className="imageWrapScreen">
-          <img src={/*process.env.PUBLIC_URL*/"https://"+`${element.imageUrl}`} alt="" />
+          <img src={`${element.imageUrl}`} alt="" />
 
           <div className="eventText">
             <div className="eventTitle">{element.eventName}</div>
@@ -102,7 +100,6 @@ function Home() {
         </div>
       </div>
     ));
-    console.log(items)
 
   const columns = useMemo(
     () => [
@@ -112,7 +109,7 @@ function Home() {
       },
       {
         accessor: "category",
-        Header: "Category"
+        Header: "Tag"
       },
       {
         accessor: "host",
@@ -160,12 +157,10 @@ function Home() {
   }
 
   const add = (item) =>{
-    item.eventPermission="false";
     item.categories=categoryId.map(Number).sort((a,b)=>a-b);
     call("/v1/api/event/write","POST",item)
     .then((response)=>
     setItems({item:response}))
-    console.log(item)
   }
   const onSubmit = ()=>{
     add(inputs);
@@ -176,17 +171,18 @@ function Home() {
         startDate:"",
         endDate:"",
         eventUrl:"",
-        imageUrl:"",
-        eventPermission: "",
     });
     setCategoryId([]);
     setMessage(true);
   }
   const dateFunc = (startDate,endDate) =>{
-    // var startdate = startDate.getFullYear().toString()+"-"+(startDate.getMonth()+1).toString()+"-"+startDate.getDate().toString()+"("+week[startDate.getDay()]+")"
-    // var enddate = endDate.getFullYear().toString()+"-"+(endDate.getMonth()+1).toString()+"-"+endDate.getDate().toString()+"("+week[endDate.getDay()]+")"
-    var startdate = startDate.getFullYear().toString()+"-"+(startDate.getMonth()+1).toString()+"-"+startDate.getDate().toString()
-    var enddate = endDate.getFullYear().toString()+"-"+(endDate.getMonth()+1).toString()+"-"+endDate.getDate().toString()
+    var startMonth=(startDate.getMonth()+1).toString().length === 1 ? "0"+(startDate.getMonth()+1).toString() : (startDate.getMonth()+1).toString()
+    var endMonth=(endDate.getMonth()+1).toString().length === 1 ? "0"+(endDate.getMonth()+1).toString() : (endDate.getMonth()+1).toString()
+    var startDay=startDate.getDate().toString().length === 1 ? "0"+startDate.getDate().toString() : startDate.getDate().toString()
+    var endDay=endDate.getDate().toString().length === 1 ? "0"+endDate.getDate().toString() : endDate.getDate().toString()
+    
+    var startdate = startDate.getFullYear().toString()+"-"+startMonth+"-"+startDay
+    var enddate = endDate.getFullYear().toString()+"-"+endMonth+"-"+endDay
     setInputs({
       ...inputs,
       startDate:startdate,
@@ -275,7 +271,7 @@ function Home() {
               ></input>
             </div>
             <div className="modal-content">
-              <span className="categoryTitle">카테고리</span>
+              <span className="categoryTitle">태그</span>
               <div className="categorys">
                 {categorys.map((element) => (
                   <button

@@ -169,17 +169,20 @@
   text-align: center;
   line-height: 30px;
 }
-
+.message-container .message-body button{
+  
+}
 .message-container .message-body .sendBtn{
   float:none;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin:10px auto;
+  margin:15px auto 0 auto;
   width:60px;
   height:40px;
   background-color: #DBF0FF;
   border-radius: 5px;
+  border: 1px solid #1f1f1f;
 }
 
 .addBtn{
@@ -215,7 +218,6 @@
   .modal-container .modal-body input{
     line-height: 20px;
     width:150px;
-
   }
   .modal-container .modal-body .categoryTitle{
     width:80px; 
@@ -228,6 +230,21 @@
   }
   .modal-container .modal-body .sendBtn{
     margin: 15px auto;
+    width:55px;
+    height:35px;
+    border: 1px solid #1f1f1f;
+  }
+
+  .message-container{
+    width:340px;
+    height: 180px;
+  }
+  .message-container div{
+    font-size: 14px;
+    line-height: 25px;
+  }
+  .message-container .message-body .sendBtn{
+    margin:15px auto 0 auto;
     width:55px;
     height:35px;
     border: 1px solid #1f1f1f;
