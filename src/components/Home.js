@@ -59,6 +59,7 @@ function Home() {
   const categoryList = categorys.map((element,idx) => <li key={idx} className={`${filterCategory.includes(element.idx)? 'active' : ''}`} onClick={()=>{
       !filterCategory.includes(element.idx) ? setFilterCategory([...filterCategory,element.idx]) : setFilterCategory(filterCategory.filter((item)=>item!==element.idx));
     }}>{element.name}</li>);
+
   const imageList =
   items.item.length > 0 &&
   items.item
@@ -82,7 +83,7 @@ function Home() {
       <div
         className="imageWrap"
         onClick={() => {
-          window.open(`${element.eventUrl}`, "_blank");
+          window.open(`${element.eventUrl.substr(0,5)==="https"? element.eventUrl : "https://"+element.eventUrl}`, "_blank");
         }}
       >
         <div className="imageWrapScreen">
@@ -160,7 +161,6 @@ function Home() {
     call("/v1/api/event/write","POST",item)
     .then((response)=>
     setItems({item:response}))
-    console.log(item)
   }
   const onSubmit = ()=>{
     add(inputs);
