@@ -83,7 +83,7 @@ function Home() {
       <div
         className="imageWrap"
         onClick={() => {
-          window.open(`${element.eventUrl.substr(0,5)==="https"? element.eventUrl : "https://"+element.eventUrl}`, "_blank");
+          window.open(`${element.eventUrl.substr(0,4)==="http"? element.eventUrl : element.eventUrl.substr(0,5)==="https"? element.eventUrl: "https://"+element.eventUrl}`, "_blank");
         }}
       >
         <div className="imageWrapScreen">

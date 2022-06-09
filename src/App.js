@@ -13,7 +13,7 @@ function App() {
         <Routes>
           <Route path="/" exact={true} element={<Home />} />
           <Route path="/archive" element={<DevelopersPage />} />
-          <Route path={"*"} element={<NotFound />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </ErrorBoundary>

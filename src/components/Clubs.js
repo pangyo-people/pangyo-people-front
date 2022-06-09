@@ -3,7 +3,7 @@ import "../css/Header.css";
 import Table from "./Table";
 import {call} from "../service/ApiService"
 
-function Clubs() {
+function Clubs(props) {
   const [items, setItems]= useState({item:[]})
   const columns = useMemo(
     () => [
@@ -22,6 +22,7 @@ function Clubs() {
     ],
     []
   );
+  const searchTerm = props.searchTerm;
 
   useEffect(()=>{
     var loading = true;
@@ -34,14 +35,21 @@ function Clubs() {
     }
   },[setItems])
 
-  const filterItem = items.item.length > 0 && items.item.filter(element => element.orgCategory === "CLUBS" && element.orgPermission === true);
+  const filterItem = items.item.length > 0 && items.item.filter((element) => {
+    if (searchTerm === "") {
+      return element;
+    } else if (
+      element.orgName.toLowerCase().includes(searchTerm.toLowerCase())
+    ) {
+      return element;
+    }
+  }).filter(element => element.orgCategory === "CLUBS" && element.orgPermission === true);
   const data = filterItem.length > 0 &&
     filterItem.map((item) => ({
       name: item.orgName,
       description: item.orgDescription,
       link: item.orgUrl,
     }));
-
   return (
     <div>
       {data.length > 0 && <Table columns={columns} data={data} />}
