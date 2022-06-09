@@ -42,10 +42,10 @@ function DevelopersPage() {
     ));
 
     const obj = { 
-      0:<Clubs/>,
-      1:<Meetings/>,
-      2:<Educations/>,
-      3:<Sessions/>,
+      0:<Clubs searchTerm={searchTerm}/>,
+      1:<Meetings searchTerm={searchTerm}/>,
+      2:<Educations searchTerm={searchTerm}/>,
+      3:<Sessions searchTerm={searchTerm}/>,
     }
     const onClickHandler = (id) =>{
       setPage(id);

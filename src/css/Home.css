@@ -200,6 +200,11 @@
 
 
 @media (max-width:430px) {
+  .container .image-container .imageWrap .eventTitle{
+    opacity: 1;
+    border-bottom: 1px solid #fff;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
   .modal-container{
     width:340px;
     height: 460px;
