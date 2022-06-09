@@ -18,7 +18,7 @@ jobs:
           echo "REACT_APP_API_SERVER_URL=${{ secrets.REACT_APP_DEV_API_SERVER_URL}}" >> .env
 
       - name: Install Dependencies
-        run: npm install
+        run: npm install --force
 
       - name: Build
         run: npm run build
